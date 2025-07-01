@@ -89,8 +89,8 @@ void Main()
     // Requetes : tickets résolus pour un produit sur une période donnée et une version précise
     PrintTickets(
         productId: 4,
-        startDate: new DateTime(2023, 01, 01),
-        endDate: new DateTime(2025, 06, 30), 
+		startDate: new DateTime(2023, 01, 01),
+		endDate: new DateTime(2025, 06, 30), 
 		status: "Résolu",
 		versionId: 2
     ).Dump();
@@ -98,8 +98,8 @@ void Main()
 	// Requetes : tickets RESOLUS pour un produit avec une version précise et avec mots-clés
     PrintTickets(
 		productId: 3,
-        status: "Résolu",
-        keywords: new List<string> { "utilisateur", "bug" },
+		status: "Résolu",
+		keywords: new List<string> { "utilisateur", "bug" },
 		versionId: 2
     ).Dump();
 	
@@ -108,8 +108,8 @@ void Main()
 		productId: 2,
 		versionId: 6,
 		startDate: new DateTime(2023, 01, 01),
-        endDate: new DateTime(2025, 06, 30),
+		endDate: new DateTime(2025, 06, 30),
 		status: "Résolu",
-        keywords: new List<string> { "application", "bug" }
+		keywords: new List<string> { "application", "bug" }
     ).Dump();
 }
