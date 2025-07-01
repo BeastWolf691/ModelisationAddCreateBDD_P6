@@ -13,13 +13,14 @@
 </Query>
 
 // Méthode générique qui construit et exécute la requête, puis renvoie les résultats
-IEnumerable<object> PrintTickets(
-    int? productId = null,
-    int? versionId = null,
-    string status = null,
-    DateTime? startDate = null,
-    DateTime? endDate = null,
-    List<string>
+IEnumerable<object>
+	PrintTickets(
+	int? productId = null,
+	int? versionId = null,
+	string status = null,
+	DateTime? startDate = null,
+	DateTime? endDate = null,
+	List<string>
 keywords = null)
 {
 	var query = Tickets.AsQueryable();
@@ -36,7 +37,7 @@ keywords = null)
 	// Filtre status + date
 	if (!string.IsNullOrEmpty(status))
 	{
-		query = query.Where(t => t.Status.Name == status);
+	query = query.Where(t => t.Status.Name == status);
 
 		if (start.HasValue && end.HasValue)
 		{
@@ -62,65 +63,40 @@ keywords = null)
 	var filteredTickets = query.ToList();
 
 	if (keywords != null && keywords.Any())
-    {
-        filteredTickets = filteredTickets
-            .Where(t => keywords.Any(k => t.Problem != null && t.Problem.Contains(k, StringComparison.OrdinalIgnoreCase)))
-            .ToList();
-    }
+	{
+		filteredTickets = filteredTickets
+			.Where(t => keywords.Any(k => t.Problem != null && t.Problem.Contains(k, StringComparison.OrdinalIgnoreCase)))
+			.ToList();
+	}
 
-    return filteredTickets.Select(t => new
-    {
-        t.Id,
-        Product = t.Product?.Name,
-        t.Date_create,
-        t.Date_end,
-        Version = t.Version?.Number_version,
-        Status = t.Status?.Name,
-        t.Problem,
-    });
+	return filteredTickets.Select(t => new
+	{
+		t.Id,
+		Product = t.Product?.Name,
+		t.Date_create,
+		t.Date_end,
+		Version = t.Version?.Number_version,
+		Status = t.Status?.Name,
+		t.Problem,
+	});
 }
 
 // Fonction Main qui teste plusieurs cas d’usage
 void Main()
 {
-    // Exemple 1 : tous les tickets avec statut "En cours"
-    PrintTickets(status: "En cours").Dump();
 
-    // Exemple 2 : tickets d’un produit précis
-    PrintTickets(productId: 3, status: "En cours").Dump();
+	// Requetes : tous les tickets avec status "En cours", par produit, puis version
+	PrintTickets(productId: 4, versionId: 2 , status: "En cours").Dump();
 
-    // Exemple 3 : tickets pour un produit et une version précise
-    PrintTickets(productId: 4, versionId: 2 , status: "En cours").Dump();
-
-    // Exemple 4 : tickets sur une période donnée
-    PrintTickets(
-        productId: 1,
-        startDate: new DateTime(2023, 01, 01),
-        endDate: new DateTime(2025, 06, 30)
-    ).Dump();
-
-    // Exemple 5 : tickets sur une période donnée et une version précise
-    PrintTickets(
-        productId: 4,
-        startDate: new DateTime(2023, 01, 01),
-        endDate: new DateTime(2025, 06, 30), 
+	// Requetes : tickets pour un produit sur une période donnée et une version précise
+	PrintTickets(
+		productId: 4,
+		startDate: new DateTime(2023, 01, 01),
+		endDate: new DateTime(2025, 06, 30),
 		versionId: 2
-    ).Dump();
+	).Dump();
 	
-    // Exemple 6 : tickets avec mots-clés
-    PrintTickets(
-        status: "En cours",
-        keywords: new List<string> { "utilisateur", "bug" }
-    ).Dump();
-	
-	// Exemple 7 : tickets pour un produit avec un statut et avec mots-clés
-    PrintTickets(
-		productId: 2,
-        status: "En cours",
-        keywords: new List<string> { "utilisateur", "bug" }
-    ).Dump();
-	
-	// Exemple 8 : tickets pour un produit avec un statut, une version précise et avec mots-clés
+	// Requetes : tickets EN COURS pour un produit, une version précise et avec mots-clés
     PrintTickets(
 		productId: 2,
         status: "En cours",
@@ -128,15 +104,7 @@ void Main()
 		versionId: 1
     ).Dump();
 	
-	// Exemple 9 : tickets pour un produit avec une période donnée et avec mots-clés
-    PrintTickets(
-		productId: 2,
-		startDate: new DateTime(2023, 01, 01),
-        endDate: new DateTime(2025, 06, 30),
-        keywords: new List<string> { "application", "bug" }
-    ).Dump();
-	
-	// Exemple 10 : tickets pour un produit avec une période donnée, une version et avec mots-clés
+	// Requetes : tickets pour un produit avec une période donnée, une version et avec mots-clés
     PrintTickets(
 		productId: 1,
 		versionId: 4,

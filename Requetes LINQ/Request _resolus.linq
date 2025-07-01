@@ -83,24 +83,10 @@ keywords = null)
 // Fonction Main qui teste plusieurs cas d’usage Section RESOLU
 void Main()
 {
-    // Exemple 1 : tous les tickets avec status "Résolu"
-    PrintTickets(status: "Résolu").Dump();
-
-    // Exemple 2 : tickets d’un produit précis
-    PrintTickets(productId: 3, status: "Résolu").Dump();
-
-    // Exemple 3 : tickets pour un produit et une version précise
+    // Requetes : tous les tickets avec status "Résolu", par produit, puis version
     PrintTickets(productId: 4, versionId: 2 , status: "Résolu").Dump();
 
-    // Exemple 4 : tickets résolus pour un produit sur une période donnée
-    PrintTickets(
-        productId: 1,
-        startDate: new DateTime(2023, 01, 01),
-        endDate: new DateTime(2025, 06, 30), 
-		status: "Résolu"
-    ).Dump();
-
-    // Exemple 5 : tickets résolus pour un produit sur une période donnée et une version précise
+    // Requetes : tickets résolus pour un produit sur une période donnée et une version précise
     PrintTickets(
         productId: 4,
         startDate: new DateTime(2023, 01, 01),
@@ -109,20 +95,7 @@ void Main()
 		versionId: 2
     ).Dump();
 	
-    // Exemple 6 : tickets RESOLUS avec mots-clés
-    PrintTickets(
-        status: "Résolu",
-        keywords: new List<string> { "utilisateur", "bug" }
-    ).Dump();
-	
-	// Exemple 7 : tickets RESOLUS pour un produit et avec mots-clés
-    PrintTickets(
-		productId: 2,
-        status: "Résolu",
-        keywords: new List<string> { "utilisateur", "bug" }
-    ).Dump();
-	
-	// Exemple 8 : tickets RESOLUS pour un produit avec une version précise et avec mots-clés
+	// Requetes : tickets RESOLUS pour un produit avec une version précise et avec mots-clés
     PrintTickets(
 		productId: 3,
         status: "Résolu",
@@ -130,16 +103,7 @@ void Main()
 		versionId: 2
     ).Dump();
 	
-	// Exemple 9 : tickets RESOLUS pour un produit avec une période donnée et avec mots-clés
-    PrintTickets(
-		productId: 2,
-		startDate: new DateTime(2023, 01, 01),
-        endDate: new DateTime(2025, 06, 30),
-		status: "Résolu",
-        keywords: new List<string> { "application", "bug" }
-    ).Dump();
-	
-	// Exemple 10 : tickets RESOLUS pour un produit avec une période donnée, une version et avec mots-clés
+	// Requetes : tickets RESOLUS pour un produit avec une période donnée, une version et avec mots-clés
     PrintTickets(
 		productId: 2,
 		versionId: 6,
