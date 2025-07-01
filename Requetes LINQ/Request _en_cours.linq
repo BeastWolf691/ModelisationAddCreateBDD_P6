@@ -99,8 +99,8 @@ void Main()
 	// Requetes : tickets EN COURS pour un produit, une version précise et avec mots-clés
     PrintTickets(
 		productId: 2,
-        status: "En cours",
-        keywords: new List<string> { "utilisateur", "bug" },
+		status: "En cours",
+		keywords: new List<string> { "utilisateur", "bug" },
 		versionId: 1
     ).Dump();
 	
@@ -109,7 +109,7 @@ void Main()
 		productId: 1,
 		versionId: 4,
 		startDate: new DateTime(2023, 01, 01),
-        endDate: new DateTime(2025, 06, 30),
-        keywords: new List<string> { "application", "bug" }
+		endDate: new DateTime(2025, 06, 30),
+		keywords: new List<string> { "application", "bug" }
     ).Dump();
 }
