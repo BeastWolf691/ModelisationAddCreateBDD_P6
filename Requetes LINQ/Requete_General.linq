@@ -14,33 +14,31 @@
 
 void Main()
 {
-    // 🔧 Valeurs à changer
     int? productId = null; 
     int? versionId = null;
     string status = null; 
     DateTime? startDate = null;
     DateTime? endDate = null;
-    List<string> keywords = new List<string>
-	{};
+    List<string> keywords = new List<string>{};
 
 	// 🧱 Base de la requête
 	var query = Tickets.AsQueryable();
 
 	if (productId.HasValue)
 	{
-	query = query.Where(t => t.Product_id == productId.Value);
+	query = query.Where(t => t.VersionsOS.Product.Id == productId.Value);
 	}
 
 	if (versionId.HasValue)
 	{
-	query = query.Where(t => t.Version_id == versionId.Value);
+	query = query.Where(t => t.VersionsOS.Version.Id == versionId.Value);
 	}
 
 	if (!string.IsNullOrEmpty(status))
 	{
-	query = query.Where(t => t.Status.Name == status); 
-	var start = startDate.HasValue ? DateOnly.FromDateTime(startDate.Value) : (DateOnly?)null;
-	var end = endDate.HasValue ? DateOnly.FromDateTime(endDate.Value) : (DateOnly?)null;
+		query = query.Where(t => t.Status.Name == status);
+		var start = startDate.HasValue ? DateOnly.FromDateTime(startDate.Value) : (DateOnly?)null;
+		var end = endDate.HasValue ? DateOnly.FromDateTime(endDate.Value) : (DateOnly?)null;
 
 		if (start.HasValue && end.HasValue)
 		{
@@ -77,20 +75,22 @@ void Main()
     {
         filteredTickets = filteredTickets
             .Where(t => keywords.Any(k => t.Problem != null && t.Problem.Contains(k, StringComparison.OrdinalIgnoreCase)))
-            .ToList();
-    }
+				.ToList();
+				}
 
-    // 🔎 Projection finale
-    var result = filteredTickets.Select(t => new
-    {
-        t.Id,
-		Product = t.Product?.Name,
-        t.Date_create,
-        t.Date_end,
-        Version = t.Version?.Number_version,
-        Status = t.Status?.Name,
-		t.Problem,
-    });
+	// 🔎 Projection finale
+	var result = filteredTickets.Select(t => new
+	{
+	t.Id,
+	Product = t.VersionsOS.Product.Name,
+	t.Date_create,
+	t.Date_end,
+	Version = t.VersionsOS.Version.Number_version,
+	OS = t.VersionsOS.Operating_system.Name_os,
+	Status = t.Status?.Name,
+	t.Problem,
+	});
 
-    result.Dump();
+	result.Dump();
 }
+			

@@ -24,10 +24,14 @@ IEnumerable<object> PrintTickets(
 	var query = Tickets.AsQueryable();
 
 	if (productId.HasValue)
-	query = query.Where(t => t.Product_id == productId.Value);
+	{
+	query = query.Where(t => t.VersionsOS.Product.Id == productId.Value);
+	}
 
 	if (versionId.HasValue)
-	query = query.Where(t => t.Version_id == versionId.Value);
+	{
+	query = query.Where(t => t.VersionsOS.Version.Id == versionId.Value);
+	}
 
 	DateOnly? start = startDate.HasValue ? DateOnly.FromDateTime(startDate.Value) : null;
 	DateOnly? end = endDate.HasValue ? DateOnly.FromDateTime(endDate.Value) : null;
@@ -35,7 +39,7 @@ IEnumerable<object> PrintTickets(
 	// Filtre status + date
 	if (!string.IsNullOrEmpty(status))
 	{
-	query = query.Where(t => t.Status.Name == status);
+		query = query.Where(t => t.Status.Name == status);
 
 		if (start.HasValue && end.HasValue)
 		{
@@ -61,41 +65,42 @@ IEnumerable<object> PrintTickets(
 	var filteredTickets = query.ToList();
 
 	if (keywords != null && keywords.Any())
-    {
-        filteredTickets = filteredTickets
-            .Where(t => keywords.Any(k => t.Problem != null && t.Problem.Contains(k, StringComparison.OrdinalIgnoreCase)))
-            .ToList();
-    }
+	{
+	filteredTickets = filteredTickets
+		.Where(t => keywords.Any(k => t.Problem != null && t.Problem.Contains(k, StringComparison.OrdinalIgnoreCase)))
+		.ToList();
+	}
 
-    return filteredTickets.Select(t => new
-    {
-        t.Id,
-        Product = t.Product?.Name,
-        t.Date_create,
-        t.Date_end,
-        Version = t.Version?.Number_version,
-        Status = t.Status?.Name,
-        t.Problem,
-    });
+	return filteredTickets.Select(t => new
+	{
+	t.Id,
+	Product = t.VersionsOS.Product.Name,
+	t.Date_create,
+	t.Date_end,
+	Version = t.VersionsOS.Version.Number_version,
+	OS = t.VersionsOS.Operating_system.Name_os,
+	Status = t.Status?.Name,
+	t.Problem,
+	});
 }
 
-// Fonction Main qui teste plusieurs cas d’usage Section RESOLU
-void Main()
-{
-    // Requetes : tous les tickets avec status "Résolu", par produit, puis version
-    PrintTickets(productId: 4, versionId: 2 , status: "Résolu").Dump();
+		// Fonction Main qui teste plusieurs cas d’usage Section RESOLU
+		void Main()
+		{
+		// Requetes : tous les tickets avec status "Résolu", par produit, puis version
+		PrintTickets(productId: 4, versionId: 2 , status: "Résolu").Dump();
 
-    // Requetes : tickets résolus pour un produit sur une période donnée et une version précise
-    PrintTickets(
-        productId: 4,
+		// Requetes : tickets résolus pour un produit sur une période donnée et une version précise
+		PrintTickets(
+		productId: 4,
 		startDate: new DateTime(2023, 01, 01),
-		endDate: new DateTime(2025, 06, 30), 
+		endDate: new DateTime(2025, 06, 30),
 		status: "Résolu",
 		versionId: 2
-    ).Dump();
-	
-	// Requetes : tickets RESOLUS pour un produit avec une version précise et avec mots-clés
-    PrintTickets(
+		).Dump();
+
+		// Requetes : tickets RESOLUS pour un produit avec une version précise et avec mots-clés
+		PrintTickets(
 		productId: 3,
 		status: "Résolu",
 		keywords: new List<string> { "utilisateur", "bug" },

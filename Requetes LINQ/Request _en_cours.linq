@@ -25,10 +25,14 @@ IEnumerable<object>
 	var query = Tickets.AsQueryable();
 
 	if (productId.HasValue)
-	query = query.Where(t => t.Product_id == productId.Value);
+	{
+	query = query.Where(t => t.VersionsOS.Product.Id == productId.Value);
+	}
 
 	if (versionId.HasValue)
-	query = query.Where(t => t.Version_id == versionId.Value);
+	{
+	query = query.Where(t => t.VersionsOS.Version.Id == versionId.Value);
+	}
 
 	DateOnly? start = startDate.HasValue ? DateOnly.FromDateTime(startDate.Value) : null;
 	DateOnly? end = endDate.HasValue ? DateOnly.FromDateTime(endDate.Value) : null;
@@ -71,10 +75,11 @@ IEnumerable<object>
 	return filteredTickets.Select(t => new
 	{
 		t.Id,
-		Product = t.Product?.Name,
+		Product = t.VersionsOS.Product.Name,
 		t.Date_create,
 		t.Date_end,
-		Version = t.Version?.Number_version,
+		Version = t.VersionsOS.Version.Number_version,
+		OS = t.VersionsOS.Operating_system.Name_os,
 		Status = t.Status?.Name,
 		t.Problem,
 	});
