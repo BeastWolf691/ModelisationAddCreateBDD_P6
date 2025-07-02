@@ -25,12 +25,12 @@ IEnumerable<object> PrintTickets(
 
 	if (productId.HasValue)
 	{
-	query = query.Where(t => t.VersionsOS.Product.Id == productId.Value);
+	query = query.Where(t => t.ProductVersionsOS.Product.Id == productId.Value);
 	}
 
 	if (versionId.HasValue)
 	{
-	query = query.Where(t => t.VersionsOS.Version.Id == versionId.Value);
+	query = query.Where(t => t.ProductVersionsOS.Version.Id == versionId.Value);
 	}
 
 	DateOnly? start = startDate.HasValue ? DateOnly.FromDateTime(startDate.Value) : null;
@@ -74,11 +74,11 @@ IEnumerable<object> PrintTickets(
 	return filteredTickets.Select(t => new
 	{
 	t.Id,
-	Product = t.VersionsOS.Product.Name,
+	Product = t.ProductVersionsOS.Product.Name,
 	t.Date_create,
 	t.Date_end,
-	Version = t.VersionsOS.Version.Number_version,
-	OS = t.VersionsOS.Operating_system.Name_os,
+	Version = t.ProductVersionsOS.Version.Number_version,
+	OS = t.ProductVersionsOS.Operating_system.Name_os,
 	Status = t.Status?.Name,
 	t.Problem,
 	});

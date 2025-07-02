@@ -27,7 +27,7 @@ INSERT INTO Products (id, name) VALUES
 (3,'Planificateur d''entrainement'), 
 (4,'Planificateur d''Anxiété Sociale');
 
-INSERT INTO VersionsOS (id, product_id, version_id, operating_system_id) VALUES 
+INSERT INTO ProductVersionsOS (id, product_id, version_id, operating_system_id) VALUES 
 (1,1,1,1) , (2,1,1,3) , (3,1,2,1) , (4,1,2,2) , 
 (5,1,2,3) , (6,1,3,1) , (7,1,3,2) , (8,1,3,3) , 
 (9,1,3,4) , (10,1,3,5) , (11,1,3,6) , (12,1,4,2) , 
@@ -40,7 +40,7 @@ INSERT INTO VersionsOS (id, product_id, version_id, operating_system_id) VALUES
 (37,4,1,2) , (38,4,1,3) , (39,4,1,4) , (40,4,2,5) ,
 (41,4,2,2) , (42,4,2,3) , (43,4,2,4) , (44,4,2,5);
 
-INSERT INTO Tickets (id, date_create, date_end, status_id, versionsOS_id, problem, resolution) VALUES
+INSERT INTO Tickets (id, date_create, date_end, status_id, productVersionsOS_id, problem, resolution) VALUES
 (1, '2023-02-05', '2023-02-10', 2, 22, 'L’application plante lors de la génération d’un graphique de performance mensuelle sur certains comptes à fort historique.','Une erreur de mémoire a été identifiée. Ajout d’un système de pagination pour le rendu des données dans les graphiques.'),
 (2, '2023-07-11', NULL, 1, 33,'Sur certains appareils Mobile, les rappels de séance d’entraînement ne s’activent pas lorsque l’application est en arrière-plan.',NULL),
 (3, '2023-12-03', '2023-12-15', 2, 42,'Le programme ignore les préférences de notification définies par l’utilisateur à chaque redémarrage.','La sauvegarde locale des préférences était mal reliée à l’ID de session. Correction du chemin d’accès au fichier config.'),

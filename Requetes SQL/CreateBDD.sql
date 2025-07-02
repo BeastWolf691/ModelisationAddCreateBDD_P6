@@ -21,7 +21,7 @@ CREATE TABLE Versions (
     number_version NVARCHAR(10) NOT NULL
 );
 
-CREATE TABLE VersionsOS (
+CREATE TABLE ProductVersionsOS (
     id INT NOT NULL PRIMARY KEY,
     product_id INT NOT NULL,
     version_id INT NOT NULL,
@@ -36,9 +36,9 @@ id INT NOT NULL PRIMARY KEY,
 date_create date NOT NULL,
 date_end date NULL,
 status_id INT NOT NULL,
-versionsOS_id INT NOT NULL,
+productVersionsOS_id INT NOT NULL,
 problem VARCHAR(250) NOT NULL,
 resolution VARCHAR(250) NULL,
-FOREIGN KEY (versionsOS_id) REFERENCES VersionsOS(id),
+FOREIGN KEY (productVersionsOS_id) REFERENCES ProductVersionsOS(id),
 FOREIGN KEY (status_id) REFERENCES Status(id)
 );
