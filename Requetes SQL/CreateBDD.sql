@@ -23,9 +23,9 @@ CREATE TABLE Versions (
 
 CREATE TABLE VersionsOS (
     id INT NOT NULL PRIMARY KEY,
+    product_id INT NOT NULL,
     version_id INT NOT NULL,
     operating_system_id INT NOT NULL,
-    product_id INT NOT NULL,
     FOREIGN KEY (version_id) REFERENCES Versions(id),
     FOREIGN KEY (operating_system_id) REFERENCES OperatingSystem(id),
     FOREIGN KEY (product_id) REFERENCES Products(id)
@@ -36,13 +36,9 @@ id INT NOT NULL PRIMARY KEY,
 date_create date NOT NULL,
 date_end date NULL,
 status_id INT NOT NULL,
-product_id INT NOT NULL,
-version_id INT NOT NULL,
-operating_system_id INT NOT NULL,
+versionsOS_id INT NOT NULL,
 problem VARCHAR(250) NOT NULL,
 resolution VARCHAR(250) NULL,
-FOREIGN KEY (version_id) REFERENCES Versions(id),
-FOREIGN KEY (operating_system_id) REFERENCES OperatingSystem(id),
-FOREIGN KEY (status_id) REFERENCES Status(id),
-FOREIGN KEY (product_id) REFERENCES Products(id)
+FOREIGN KEY (versionsOS_id) REFERENCES VersionsOS(id),
+FOREIGN KEY (status_id) REFERENCES Status(id)
 );

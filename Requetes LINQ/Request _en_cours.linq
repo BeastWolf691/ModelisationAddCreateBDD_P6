@@ -20,8 +20,7 @@ IEnumerable<object>
 	string status = null,
 	DateTime? startDate = null,
 	DateTime? endDate = null,
-	List<string>
-keywords = null)
+	List<string>keywords = null)
 {
 	var query = Tickets.AsQueryable();
 
