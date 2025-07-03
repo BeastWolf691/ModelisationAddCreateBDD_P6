@@ -13,7 +13,6 @@ INSERT INTO OperatingSystem (id, name_os) VALUES
 (5,'iOS'), 
 (6,'Windows Mobile');
 
-
 INSERT INTO Versions (id, number_version) VALUES 
 (1,'1.0'), 
 (2,'1.1'), 
