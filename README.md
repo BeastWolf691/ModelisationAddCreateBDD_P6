@@ -21,8 +21,8 @@ La base permet de suivre les problèmes identifiés, leur résolution, ainsi que
 
 ## Modèle Conceptuel de Données  
 
-![image](https://github.com/user-attachments/assets/8d2c3730-c282-4683-8b37-b6acf79f8994)  
-![image](https://github.com/user-attachments/assets/647722fa-191c-493d-9d86-617e72feed52)
+![image](https://github.com/user-attachments/assets/56d32528-e24e-4e39-ad2c-f5075bc920df)
+
 
 La conception du MCD a été réalisée via **Lucidchart**, un outil de modélisation visuelle.  
 Le schéma a ensuite été transcrit manuellement en **script SQL** (création des tables et relations),  
